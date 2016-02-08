@@ -56,3 +56,26 @@ class StandardHex: ActivatableObject, Hexagon {
     super.init(imageNamed: "hexagon", atPosition: atCoordinate.toWorld())
   }
 }
+
+class PowerupHex: StandardHex {
+  
+  override init(atCoordinate: Axialcoordinate) {
+    super.init(atCoordinate: atCoordinate)
+  }
+  
+  override func resetActive() {
+    super.resetActive()
+    activatePowerup()
+  }
+  
+  func activatePowerup() {
+    
+  }
+}
+
+class TimePowerup: PowerupHex {
+  
+  override func activatePowerup() {
+    // Powerup code here
+  }
+}
