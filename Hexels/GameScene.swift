@@ -27,7 +27,7 @@ class GameScene: SKScene {
     self.addChild(hexNode);
     
     manager = GameManager(centerNode: hexNode, label: label)
-    manager.startGame()
+    manager.initializeLevel()
   }
 
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
