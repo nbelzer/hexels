@@ -4,6 +4,65 @@
 //
 
 import Foundation
+import SpriteKit
+
+class ActiveHexGrid: HexGrid {
+  
+  var hexNode: SKNode
+  
+  let manager: GameManager
+  var activeHex: ActivatableObject? = nil
+  var lastCoordinate: Axialcoordinate? = nil
+  
+  init(gameManager: GameManager, node: SKNode) {
+    hexNode = node
+    manager = gameManager
+    super.init()
+  }
+  
+  func activateHexagon() {
+    var tries = 0
+    while activeHex == nil && tries <= 50 {
+      tries += 1
+      let coordinate = getRandomCoordinate(2).toAxial()
+      
+      if (coordinate != lastCoordinate) {
+        activeHex = grid[coordinate]
+        activeHex?.activate()
+        lastCoordinate = coordinate
+      }
+    }
+    
+    if (activeHex == nil && tries >= 50) {
+      print("Could not find a suitable hex in 50 turns")
+    }
+  }
+  
+  func deactivate(byTouch: UITouch) {
+    let location = byTouch.locationInNode(hexNode)
+    
+    let axial = toAxial((x: Int(location.x), y: Int(location.y)))
+    
+    if let hex = grid[axial] {
+      if hex.active {
+        manager.score += 1
+        hex.resetActive()
+        activeHex = nil
+      } else {
+        resetAllActives()
+        manager.endGame()
+      }
+    }
+  }
+  
+  func resetAllActives() {
+    for (_, active) in grid {
+      if !active.active {
+        active.resetActive()
+      }
+    }
+  }
+}
 
 class HexGrid {
 
@@ -13,7 +72,7 @@ class HexGrid {
 //    createGrid(15);
   }
   
-  func createGrid(size: Int) {
+  func createGrid(size: Int, atNode: SKNode) {
     for (_, hex) in grid {
       hex.sprite.removeFromParent();
     }
@@ -30,8 +89,16 @@ class HexGrid {
         }
       }
     }
-  }
     
+    addToNode(atNode)
+  }
+  
+  func addToNode(node: SKNode) {
+    for (_, hex) in grid {
+      node.addChild(hex.sprite)
+    }
+  }
+  
   func createHexagon(atPosition: Axialcoordinate) {
     grid[atPosition] = StandardHex(atCoordinate: atPosition);
   }
