@@ -33,8 +33,46 @@ class ActiveHexGrid: HexGrid {
       }
     }
     
-    if (activeHex == nil && tries >= 50) {
+    if (activeHex == nil || tries >= 50) {
       print("Could not find a suitable hex in 50 turns")
+    }
+    
+    if (arc4random_uniform(100) < 10) {
+      activatePowerup()
+    }
+  }
+  
+  func activatePowerup() {
+    var tries = 0;
+    var hex: PowerupHex? = nil;
+    while hex == nil && tries <= 50 {
+      tries += 1;
+      
+      let coordinate = getRandomCoordinate(2).toAxial();
+      
+      if let possibleHex =  grid[coordinate] {
+        if !possibleHex.active {
+          if let powerup = possibleHex as? PowerupHex {
+            hex = powerup;
+            hex?.activate();
+            hex?.powered = true;
+            switch (arc4random_uniform(3))
+            {
+            case 0:
+              hex?.powerup = { self.manager.startTime += 5; };
+              break;
+            case 1:
+              hex?.powerup = { self.manager.lives += 1; };
+              break;
+            case 2:
+              hex?.powerup = { self.manager.score = Int(Double(self.manager.score) * 1.2); };
+              break;
+            default:
+              hex?.powerup = {};
+            }
+          }
+        }
+      }
     }
   }
   
@@ -43,14 +81,17 @@ class ActiveHexGrid: HexGrid {
     
     let axial = toAxial((x: Int(location.x), y: Int(location.y)))
     
-    if let hex = grid[axial] {
-      if hex.active {
+    if let hex = grid[axial] as? PowerupHex {
+      if hex.powered {
+        hex.resetActive();
+        manager.score += 1
+      } else if hex.active {
         manager.score += 1
         hex.resetActive()
         activeHex = nil
       } else {
         resetAllActives()
-        manager.endGame()
+        manager.lives -= 1
       }
     }
   }
@@ -61,6 +102,10 @@ class ActiveHexGrid: HexGrid {
         active.resetActive()
       }
     }
+  }
+  
+  override func createHexagon(atPosition: Axialcoordinate) {
+    grid[atPosition] = PowerupHex(atCoordinate: atPosition, manager: manager)
   }
 }
 

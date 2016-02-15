@@ -28,6 +28,11 @@ class GameManager {
       return gameLength - Int(currentTime - startTime)
     }
   }
+  var lives: Int = 0 {
+    didSet {
+      checkGameConditions();
+    }
+  }
   
   private var currentScore = 0
   internal var score: Int {
@@ -52,6 +57,7 @@ class GameManager {
   
   func startGame() {
     gameRunning = true
+    lives = 3
     startTime = currentTime
   }
   
@@ -64,7 +70,15 @@ class GameManager {
   }
   
   func updateLabel() {
-    label.text = "\(currentScore) [\(timeLeft)][\(highscore)]"
+    label.text = "[\(lives)] \(currentScore) [\(timeLeft)][\(highscore)]"
+  }
+  
+  func checkGameConditions() {
+    if (self.startTime + CFTimeInterval(gameLength) <= self.currentTime) {
+      endGame()
+    } else if (lives <= 0) {
+      endGame()
+    }
   }
   
   func update(currentTime: CFTimeInterval) {
@@ -75,9 +89,7 @@ class GameManager {
       startGame();
     }
     
-    if (self.startTime + CFTimeInterval(gameLength) <= self.currentTime) {
-      endGame()
-    }
+    checkGameConditions()
     
     if (grid.activeHex == nil) {
       grid.activateHexagon()

@@ -59,23 +59,19 @@ class StandardHex: ActivatableObject, Hexagon {
 
 class PowerupHex: StandardHex {
   
-  override init(atCoordinate: Axialcoordinate) {
+  var manager: GameManager;
+  var powered: Bool = false;
+  var powerup:()->() = {}
+  
+  init(atCoordinate: Axialcoordinate, manager: GameManager) {
+    self.manager = manager
     super.init(atCoordinate: atCoordinate)
   }
   
   override func resetActive() {
     super.resetActive()
-    activatePowerup()
-  }
-  
-  func activatePowerup() {
-    
-  }
-}
-
-class TimePowerup: PowerupHex {
-  
-  override func activatePowerup() {
-    // Powerup code here
+    powerup()
+    powerup = {};
+    powered = false;
   }
 }
