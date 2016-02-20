@@ -19,6 +19,7 @@ class GameManager {
   
   init(centerNode: SKNode) {
     self.hexNode = centerNode;
+    grid = HexGrid();
   }
   
   func update(currentTime: CFTimeInterval) {

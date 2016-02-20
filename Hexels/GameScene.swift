@@ -32,9 +32,9 @@ class GameScene: SKScene {
 
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     /* Called when a touch begins */
-    for touch in touches {
-
-    }
+//    for touch in touches {
+//
+//    }
   }
 
   override func update(currentTime: CFTimeInterval) {

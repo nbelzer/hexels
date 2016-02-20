@@ -8,12 +8,12 @@ import SpriteKit
 
 class HexGrid {
 
-  var grid = [Axialcoordinate: Hexagon]()
+  var grid = [Axialcoordinate: Tile]()
   
   func createGrid(size: Int, atNode: SKNode) {
-//    for (_, hex) in grid {
-//      hex.sprite.removeFromParent();
-//    }
+    for (_, hex) in grid {
+      hex.sprite.removeFromParent();
+    }
     
     grid = [:]
     
@@ -33,11 +33,11 @@ class HexGrid {
   
   func addToNode(node: SKNode) {
     for (_, hex) in grid {
-//      node.addChild(hex.sprite)
+      node.addChild(hex.sprite)
     }
   }
   
   func createHexagon(atPosition: Axialcoordinate) {
-    grid[atPosition] = Hexagon(atCoordinate: atPosition);
+    grid[atPosition] = Tile(atCoordinate: atPosition);
   }
 }
