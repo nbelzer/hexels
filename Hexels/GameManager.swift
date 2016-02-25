@@ -70,7 +70,7 @@ class GameManager {
   }
   
   func updateLabel() {
-    label.text = "\(lives)❤️  \(currentScore)🏵  \(timeLeft)🕔  \(highscore)🏆"
+    label.text = "\(lives)❤️ \(currentScore)🏵 \(timeLeft)🕔 \(highscore)🏆"
   }
   
   func checkGameConditions() {

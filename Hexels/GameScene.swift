@@ -19,7 +19,7 @@ class GameScene: SKScene {
     /* Setup your scene here */
     let label = SKLabelNode(fontNamed: "Sans Fransico")
     label.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame) - 64)
-    label.fontSize = 48
+    label.fontSize = 40
     label.fontColor = UIColor.orangeColor()
     self.addChild(label)
     
