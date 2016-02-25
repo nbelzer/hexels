@@ -56,9 +56,10 @@ class GameManager {
   }
   
   func startGame() {
-    gameRunning = true
     lives = 3
+    score = 0
     startTime = currentTime
+    gameRunning = true
   }
   
   func endGame() {
@@ -66,11 +67,10 @@ class GameManager {
       highscore = currentScore
     }
     gameRunning = false
-    score = 0
   }
   
   func updateLabel() {
-    label.text = "[\(lives)] \(currentScore) [\(timeLeft)][\(highscore)]"
+    label.text = "\(lives)❤️  \(currentScore)🏵  \(timeLeft)🕔  \(highscore)🏆"
   }
   
   func checkGameConditions() {
@@ -79,22 +79,21 @@ class GameManager {
     } else if (lives <= 0) {
       endGame()
     }
+    
+    /* Activate a hex when none are active. */
+    if (grid.activeHex == nil) {
+      grid.activateHexagon()
+    }
   }
   
   func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
     self.currentTime = currentTime
     
-    if (!gameRunning) {
-      startGame();
+    if gameRunning {
+      checkGameConditions()
+      
+      updateLabel()
     }
-    
-    checkGameConditions()
-    
-    if (grid.activeHex == nil) {
-      grid.activateHexagon()
-    }
-    
-    updateLabel()
   }
 }
