@@ -1,6 +1,6 @@
 //
 // Created by Nick Belzer on 02/02/16.
-// Copyright (c) 2016 Nick Belzer. All rights reserved.
+// Copyright (c) 2016 Nick Belzer. 
 //
 // Contains two ways of storing a coordinate system in a hexagon grid.
 //

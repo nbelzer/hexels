@@ -3,7 +3,7 @@
 //  Hexels
 //
 //  Created by Nick Belzer on 02/02/16.
-//  Copyright © 2016 Nick Belzer. All rights reserved.
+//  Copyright © 2016 Nick Belzer. 
 //
 
 import UIKit
