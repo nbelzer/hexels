@@ -27,9 +27,13 @@ class ActiveHexGrid: HexGrid {
       let coordinate = getRandomCoordinate(2).toAxial()
       
       if (coordinate != lastCoordinate) {
-        activeHex = grid[coordinate]
-        activeHex?.activate()
-        lastCoordinate = coordinate
+        if let hex = grid[coordinate] {
+          if !hex.active {
+            hex.activate()
+            lastCoordinate = coordinate
+            activeHex = hex;
+          }
+        }
       }
     }
     
@@ -37,7 +41,7 @@ class ActiveHexGrid: HexGrid {
       print("Could not find a suitable hex in 50 turns")
     }
     
-    if (arc4random_uniform(100) < 10) {
+    if (arc4random_uniform(100) < 80) {
       activatePowerup()
     }
   }
@@ -60,15 +64,15 @@ class ActiveHexGrid: HexGrid {
             {
             case 0:
               hex?.powerup = { self.manager.startTime += 5; };
-              hex?.setPowerUp(imageNamed: "time")
+              hex?.setPowerUp(imageNamed: "Time")
               break;
             case 1:
               hex?.powerup = { self.manager.lives += 1; };
-              hex?.setPowerUp(imageNamed: "lives")
+              hex?.setPowerUp(imageNamed: "Heart")
               break;
             case 2:
               hex?.powerup = { self.manager.score = Int(Double(self.manager.score) * 1.2); };
-              hex?.setPowerUp(imageNamed: "score")
+              hex?.setPowerUp(imageNamed: "Multiplier")
               break;
             default:
               hex?.powerup = {};

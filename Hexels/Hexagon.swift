@@ -53,7 +53,7 @@ class StandardHex: ActivatableObject, Hexagon {
   
   init(atCoordinate: Axialcoordinate) {
     coordinate = atCoordinate
-    super.init(imageNamed: "hexagon", atPosition: atCoordinate.toWorld())
+    super.init(imageNamed: "Hexagon", atPosition: atCoordinate.toWorld())
   }
 }
 
@@ -71,6 +71,9 @@ class PowerupHex: StandardHex {
   
   func setPowerUp(imageNamed image: String) {
     activeSprite = SKSpriteNode(imageNamed: image)
+    activeSprite?.xScale = 0.1;
+    activeSprite?.yScale = 0.1;
+    activeSprite?.zPosition = 5;
     sprite.addChild(activeSprite!)
   }
   
