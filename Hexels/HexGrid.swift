@@ -60,12 +60,15 @@ class ActiveHexGrid: HexGrid {
             {
             case 0:
               hex?.powerup = { self.manager.startTime += 5; };
+              hex?.setPowerUp(imageNamed: "time")
               break;
             case 1:
               hex?.powerup = { self.manager.lives += 1; };
+              hex?.setPowerUp(imageNamed: "lives")
               break;
             case 2:
               hex?.powerup = { self.manager.score = Int(Double(self.manager.score) * 1.2); };
+              hex?.setPowerUp(imageNamed: "score")
               break;
             default:
               hex?.powerup = {};

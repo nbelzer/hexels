@@ -61,6 +61,7 @@ class PowerupHex: StandardHex {
   
   var manager: GameManager;
   var powered: Bool = false;
+  var activeSprite: SKSpriteNode?
   var powerup:()->() = {}
   
   init(atCoordinate: Axialcoordinate, manager: GameManager) {
@@ -68,10 +69,17 @@ class PowerupHex: StandardHex {
     super.init(atCoordinate: atCoordinate)
   }
   
+  func setPowerUp(imageNamed image: String) {
+    activeSprite = SKSpriteNode(imageNamed: image)
+    sprite.addChild(activeSprite!)
+  }
+  
   override func resetActive() {
     super.resetActive()
     powerup()
     powerup = {};
     powered = false;
+    activeSprite?.removeFromParent()
+    activeSprite = nil
   }
 }
