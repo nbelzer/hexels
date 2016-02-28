@@ -71,8 +71,8 @@ class PowerupHex: StandardHex {
   
   func setPowerUp(imageNamed image: String) {
     activeSprite = SKSpriteNode(imageNamed: image)
-    activeSprite?.xScale = 0.1;
-    activeSprite?.yScale = 0.1;
+    activeSprite?.xScale = 0.5;
+    activeSprite?.yScale = 0.5;
     activeSprite?.zPosition = 5;
     sprite.addChild(activeSprite!)
   }

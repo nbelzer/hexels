@@ -60,7 +60,7 @@ class ActiveHexGrid: HexGrid {
             hex = powerup;
             hex?.activate();
             hex?.powered = true;
-            switch (arc4random_uniform(3))
+            switch (arc4random_uniform(2))
             {
             case 0:
               hex?.powerup = { self.manager.startTime += 5; };
@@ -70,10 +70,10 @@ class ActiveHexGrid: HexGrid {
               hex?.powerup = { self.manager.lives += 1; };
               hex?.setPowerUp(imageNamed: "Heart")
               break;
-            case 2:
-              hex?.powerup = { self.manager.score = Int(Double(self.manager.score) * 1.2); };
-              hex?.setPowerUp(imageNamed: "Multiplier")
-              break;
+//            case 2:
+//              hex?.powerup = { self.manager.score = Int(Double(self.manager.score) * 1.2); };
+//              hex?.setPowerUp(imageNamed: "Multiplier")
+//              break;
             default:
               hex?.powerup = {};
             }
