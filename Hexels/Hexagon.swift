@@ -17,11 +17,11 @@ class ActivatableObject {
   
   init(imageNamed: String, atPosition: CGPoint) {
     sprite = SKSpriteNode(imageNamed: "Hexagon");
-    sprite.xScale = 0.5
-    sprite.yScale = 0.5
+    sprite.xScale = 0.8
+    sprite.yScale = 0.8
     
     sprite.position = atPosition;
-    color = getRandomColor(8)
+    color = getRandomColor()
   }
   
   func activate() {
@@ -32,17 +32,25 @@ class ActivatableObject {
     }
     sprite.runAction(colorAction)
     active = true
+    
+    let activeAction =
+      SKAction.sequence([
+        SKAction.scaleTo(0.85, duration: 0.1),
+        SKAction.scaleTo(0.8, duration: 0.1)
+        ])
+    activeAction.timingMode = .EaseIn
+    sprite.runAction(activeAction)
   }
   
   func resetActive() {
     let resetAction = SKAction.group([
       SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.4),
       SKAction.sequence([
-        SKAction.scaleTo(0.45, duration: 0.1),
-        SKAction.scaleTo(0.5, duration: 0.1)
+        SKAction.scaleTo(0.75, duration: 0.1),
+        SKAction.scaleTo(0.8, duration: 0.1)
         ])
       ])
-    resetAction.timingMode = SKActionTimingMode.EaseIn
+    resetAction.timingMode = .EaseIn
     sprite.runAction(resetAction)
     active = false
   }
@@ -82,7 +90,15 @@ class PowerupHex: StandardHex {
     powerup()
     powerup = {};
     powered = false;
-    activeSprite?.removeFromParent()
-    activeSprite = nil
+    
+    let resetAction =
+      SKAction.group([
+        SKAction.scaleTo(7, duration: 0.3),
+        SKAction.fadeAlphaTo(0, duration: 0.3)])
+    resetAction.timingMode = .EaseIn
+    activeSprite?.runAction(resetAction, completion: {
+      self.activeSprite?.removeFromParent()
+      self.activeSprite = nil
+    })
   }
 }

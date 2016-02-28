@@ -16,7 +16,9 @@ class GameManager {
   let hexNode: SKNode
   
   var highscore: Int = 0
-  var label: SKLabelNode = SKLabelNode()
+  let livesLabel: SKLabelNode
+  let scoreLabel: SKLabelNode
+  let timeLabel: SKLabelNode
   
   var gameRunning = false
   
@@ -45,9 +47,12 @@ class GameManager {
     }
   }
   
-  init(centerNode: SKNode, label: SKLabelNode) {
+  init(centerNode: SKNode, scene: SKScene) {
     self.hexNode = centerNode
-    self.label = label
+    
+    livesLabel = scene.childNodeWithName("Lives") as! SKLabelNode;
+    scoreLabel = scene.childNodeWithName("Score") as! SKLabelNode;
+    timeLabel = scene.childNodeWithName("Time") as! SKLabelNode;
   }
   
   func initializeLevel() {
@@ -70,7 +75,9 @@ class GameManager {
   }
   
   func updateLabel() {
-    label.text = "\(lives)❤️ \(currentScore)🏵 \(timeLeft)🕔 \(highscore)🏆"
+    livesLabel.text = String(lives);
+    scoreLabel.text = String(currentScore);
+    timeLabel.text = String(timeLeft);
   }
   
   func checkGameConditions() {
@@ -92,7 +99,6 @@ class GameManager {
     
     if gameRunning {
       checkGameConditions()
-      
       updateLabel()
     }
   }

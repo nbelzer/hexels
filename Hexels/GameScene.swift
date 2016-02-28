@@ -17,11 +17,6 @@ class GameScene: SKScene {
   
   override func didMoveToView(view: SKView) {
     /* Setup your scene here */
-    let label = SKLabelNode(fontNamed: "Sans Fransico")
-    label.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMaxY(self.frame) - 64)
-    label.fontSize = 40
-    label.fontColor = UIColor.orangeColor()
-    self.addChild(label)
     
     startButton = UIButton(type: .System)
     startButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.25, alpha: 0.95);
@@ -35,7 +30,7 @@ class GameScene: SKScene {
     hexNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
     self.addChild(hexNode);
     
-    manager = GameManager(centerNode: hexNode, label: label)
+    manager = GameManager(centerNode: hexNode, scene: self)
     manager.initializeLevel()
   }
 

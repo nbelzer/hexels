@@ -5,6 +5,7 @@
 
 import Foundation
 import SpriteKit
+import GameplayKit
 
 class ActiveHexGrid: HexGrid {
   
@@ -41,7 +42,7 @@ class ActiveHexGrid: HexGrid {
       print("Could not find a suitable hex in 50 turns")
     }
     
-    if (arc4random_uniform(100) < 80) {
+    if (random.nextUniform() < 0.1) {
       activatePowerup()
     }
   }
@@ -54,7 +55,7 @@ class ActiveHexGrid: HexGrid {
       
       let coordinate = getRandomCoordinate(2).toAxial();
       
-      if let possibleHex =  grid[coordinate] {
+      if let possibleHex = grid[coordinate] {
         if !possibleHex.active {
           if let powerup = possibleHex as? PowerupHex {
             hex = powerup;
