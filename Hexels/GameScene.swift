@@ -18,10 +18,11 @@ class GameScene: SKScene {
   override func didMoveToView(view: SKView) {
     /* Setup your scene here */
     
-    startButton = UIButton(type: .System)
-    startButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.25, alpha: 0.95);
-    startButton.frame = CGRectMake(0, view.frame.midY - 50, view.frame.width, 100)
+    startButton = UIButton(type: .Custom)
+    startButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.20, alpha: 0.98);
+    startButton.frame = CGRectMake(0, view.frame.minY + 100, view.frame.width, 80)
     startButton.setTitle("START GAME", forState: .Normal)
+    startButton.titleLabel?.font = UIFont.systemFontOfSize(35)
     startButton.setTitleColor(UIColor.orangeColor(), forState: .Normal);
     startButton.addTarget(self, action: Selector("startGame"), forControlEvents: .TouchDown)
     view.addSubview(startButton);

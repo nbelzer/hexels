@@ -85,8 +85,7 @@ class PowerupHex: StandardHex {
     sprite.addChild(activeSprite!)
   }
   
-  override func resetActive() {
-    super.resetActive()
+  func execPowerup() {
     powerup()
     powerup = {};
     powered = false;
@@ -100,5 +99,11 @@ class PowerupHex: StandardHex {
       self.activeSprite?.removeFromParent()
       self.activeSprite = nil
     })
+  }
+  
+  override func resetActive() {
+    super.resetActive()
+    powerup = {};
+    powered = false;
   }
 }

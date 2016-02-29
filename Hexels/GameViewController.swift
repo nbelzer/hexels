@@ -24,7 +24,11 @@ class GameViewController: UIViewController {
       skView.ignoresSiblingOrder = true
 
       /* Set the scale mode to scale to fit the window */
-      scene.scaleMode = .ResizeFill
+      if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        scene.scaleMode = .AspectFill;
+      } else {
+        scene.scaleMode = .ResizeFill;
+      }
 
       skView.presentScene(scene)
     }

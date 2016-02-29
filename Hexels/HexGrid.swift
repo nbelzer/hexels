@@ -91,6 +91,7 @@ class ActiveHexGrid: HexGrid {
     
     if let hex = grid[axial] as? PowerupHex {
       if hex.powered {
+        hex.execPowerup();
         hex.resetActive();
         manager.score += 1
       } else if hex.active {
@@ -106,10 +107,11 @@ class ActiveHexGrid: HexGrid {
   
   func resetAllActives() {
     for (_, active) in grid {
-      if !active.active {
+      if active.active {
         active.resetActive()
       }
     }
+    activeHex = nil;
   }
   
   override func createHexagon(atPosition: Axialcoordinate) {

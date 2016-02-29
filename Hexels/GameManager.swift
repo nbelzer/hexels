@@ -70,6 +70,7 @@ class GameManager {
   }
   
   func endGame() {
+    grid.resetAllActives();
     if (currentScore > highscore) {
       highscore = currentScore
     }
