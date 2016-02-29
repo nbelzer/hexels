@@ -50,9 +50,11 @@ class GameManager {
   init(centerNode: SKNode, scene: SKScene) {
     self.hexNode = centerNode
     
-    livesLabel = scene.childNodeWithName("Lives") as! SKLabelNode;
-    scoreLabel = scene.childNodeWithName("Score") as! SKLabelNode;
-    timeLabel = scene.childNodeWithName("Time") as! SKLabelNode;
+    let labelParent = scene.childNodeWithName("LabelParent")! as SKNode;
+    labelParent.position.x = scene.size.width/2;
+    livesLabel = labelParent.childNodeWithName("Lives") as! SKLabelNode;
+    scoreLabel = labelParent.childNodeWithName("Score") as! SKLabelNode;
+    timeLabel = labelParent.childNodeWithName("Time") as! SKLabelNode;
   }
   
   func initializeLevel() {
