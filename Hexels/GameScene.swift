@@ -34,6 +34,10 @@ class GameScene: SKScene {
     
     manager = GameManager(centerNode: hexNode, scene: self)
     manager.initializeLevel()
+    
+    let ad = ADBannerView(adType: .Banner)
+    ad.frame = CGRect(x: 0, y: view.frame.height - ad.frame.height, width: ad.frame.width, height: ad.frame.height)
+    view.addSubview(ad);
   }
 
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
