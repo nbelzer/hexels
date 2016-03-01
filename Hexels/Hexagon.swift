@@ -14,11 +14,12 @@ class ActivatableObject {
   var sprite: SKSpriteNode
   var color: UIColor
   var active: Bool = false
+  let originalScale: CGFloat = 0.8
   
   init(imageNamed: String, atPosition: CGPoint) {
     sprite = SKSpriteNode(imageNamed: "Hexagon");
-    sprite.xScale = 0.8
-    sprite.yScale = 0.8
+    sprite.xScale = originalScale
+    sprite.yScale = originalScale
     
     sprite.position = atPosition;
     color = getRandomColor()
@@ -35,8 +36,8 @@ class ActivatableObject {
     
     let activeAction =
       SKAction.sequence([
-        SKAction.scaleTo(0.85, duration: 0.1),
-        SKAction.scaleTo(0.8, duration: 0.1)
+        SKAction.scaleBy(1.2, duration: 0.1),
+        SKAction.scaleBy(1/1.2, duration: 0.1)
         ])
     activeAction.timingMode = .EaseIn
     sprite.runAction(activeAction)
@@ -46,8 +47,8 @@ class ActivatableObject {
     let resetAction = SKAction.group([
       SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.4),
       SKAction.sequence([
-        SKAction.scaleTo(0.75, duration: 0.1),
-        SKAction.scaleTo(0.8, duration: 0.1)
+        SKAction.scaleBy(0.8, duration: 0.1),
+        SKAction.scaleBy(1/0.8, duration: 0.1)
         ])
       ])
     resetAction.timingMode = .EaseIn

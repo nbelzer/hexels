@@ -65,7 +65,7 @@ class GameManager {
   func startGame() {
     lives = 3
     score = 0
-    startTime = currentTime
+    startTime = self.currentTime
     gameRunning = true
   }
   
@@ -75,6 +75,7 @@ class GameManager {
       highscore = currentScore
     }
     gameRunning = false
+    grid.resetGrid()
   }
   
   func updateLabel() {
@@ -84,15 +85,17 @@ class GameManager {
   }
   
   func checkGameConditions() {
+    /* Activate a hex when none are active. */
+    if (grid.activeHex == nil) {
+      grid.activateHexagon()
+    }
+    
+    if self.startTime == 0 { self.startTime = self.currentTime }
+    
     if (self.startTime + CFTimeInterval(gameLength) <= self.currentTime) {
       endGame()
     } else if (lives <= 0) {
       endGame()
-    }
-    
-    /* Activate a hex when none are active. */
-    if (grid.activeHex == nil) {
-      grid.activateHexagon()
     }
   }
   

@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import Darwin;
+import iAd;
 
 class GameScene: SKScene {
   
@@ -53,7 +54,7 @@ class GameScene: SKScene {
   }
   
   func startGame() {
-    manager.endGame();
+    if manager.gameRunning { manager.endGame() }
     manager.startGame();
     startButton.hidden = true;
   }

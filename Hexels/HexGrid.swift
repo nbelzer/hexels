@@ -68,7 +68,11 @@ class ActiveHexGrid: HexGrid {
               hex?.setPowerUp(imageNamed: "Time")
               break;
             case 1:
-              hex?.powerup = { self.manager.lives += 1; };
+              hex?.powerup =  { if (self.manager.lives < 3) {
+                                  self.resizeAll(1/0.8)
+                                };
+                                self.manager.lives += 1;
+                              };
               hex?.setPowerUp(imageNamed: "Heart")
               break;
 //            case 2:
@@ -99,8 +103,12 @@ class ActiveHexGrid: HexGrid {
         hex.resetActive()
         activeHex = nil
       } else {
-        resetAllActives()
         manager.lives -= 1
+        if manager.lives < 3 {
+          resizeAll(0.8);
+        } else {
+          resizeAllInactives()
+        }
       }
     }
   }
@@ -109,6 +117,35 @@ class ActiveHexGrid: HexGrid {
     for (_, active) in grid {
       if active.active {
         active.resetActive()
+      }
+    }
+  }
+  
+  func resizeAll(by: CGFloat) {
+    for (_, active) in grid {
+      let action = SKAction.scaleBy(by, duration: 0.1)
+      action.timingMode = .EaseIn
+      active.sprite.runAction(action)
+    }
+  }
+  
+  func resizeAllInactives() {
+    let action = SKAction.sequence([SKAction.scaleBy(0.8, duration: 0.1),SKAction.scaleBy(1/0.8, duration: 0.1)])
+    action.timingMode = .EaseIn
+    for (_,active) in grid {
+      if !active.active {
+        active.sprite.runAction(action)
+      }
+    }
+  }
+  
+  func resetGrid() {
+    for (_,active) in grid {
+      if (active.active) {
+        active.resetActive()
+      }
+      if (active.sprite.xScale != active.originalScale) {
+        active.sprite.runAction(SKAction.scaleTo(active.originalScale, duration: 0.3))
       }
     }
     activeHex = nil;
