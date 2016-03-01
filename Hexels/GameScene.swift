@@ -18,16 +18,6 @@ class GameScene: SKScene {
   
   override func didMoveToView(view: SKView) {
     /* Setup your scene here */
-    
-    startButton = UIButton(type: .Custom)
-    startButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.20, alpha: 0.98);
-    startButton.frame = CGRectMake(0, view.frame.minY + 100, view.frame.width, 80)
-    startButton.setTitle("START GAME", forState: .Normal)
-    startButton.titleLabel?.font = UIFont.systemFontOfSize(35)
-    startButton.setTitleColor(UIColor.orangeColor(), forState: .Normal);
-    startButton.addTarget(self, action: Selector("startGame"), forControlEvents: .TouchDown)
-    view.addSubview(startButton);
-    
     let hexNode = SKLabelNode()
     hexNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
     self.addChild(hexNode);
@@ -38,6 +28,15 @@ class GameScene: SKScene {
     let ad = ADBannerView(adType: .Banner)
     ad.frame = CGRect(x: 0, y: view.frame.height - ad.frame.height, width: ad.frame.width, height: ad.frame.height)
     view.addSubview(ad);
+    
+    startButton = UIButton(type: .Custom)
+    startButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.20, alpha: 1);
+    startButton.frame = CGRectMake(0, view.frame.height - 80 - ad.frame.height, view.frame.width, 60)
+    startButton.setTitle("START GAME", forState: .Normal)
+    startButton.titleLabel?.font = UIFont.systemFontOfSize(35)
+    startButton.setTitleColor(UIColor.orangeColor(), forState: .Normal);
+    startButton.addTarget(self, action: Selector("startGame"), forControlEvents: .TouchDown)
+    view.addSubview(startButton);
   }
 
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
