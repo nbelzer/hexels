@@ -19,7 +19,7 @@ class GameScene: SKScene {
   override func didMoveToView(view: SKView) {
     /* Setup your scene here */
     let hexNode = SKLabelNode()
-    hexNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+    hexNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame) - 30)
     self.addChild(hexNode);
     
     manager = GameManager(centerNode: hexNode, scene: self)
@@ -31,7 +31,7 @@ class GameScene: SKScene {
     
     startButton = UIButton(type: .Custom)
     startButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.20, alpha: 1);
-    startButton.frame = CGRectMake(0, view.frame.height - 80 - ad.frame.height, view.frame.width, 60)
+    startButton.frame = CGRectMake(0, 60, view.frame.width, 60)
     startButton.setTitle("START GAME", forState: .Normal)
     startButton.titleLabel?.font = UIFont.systemFontOfSize(35)
     startButton.setTitleColor(UIColor.orangeColor(), forState: .Normal);
