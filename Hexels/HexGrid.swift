@@ -15,9 +15,13 @@ class ActiveHexGrid: HexGrid {
   var activeHex: ActivatableObject? = nil
   var lastCoordinate: Axialcoordinate? = nil
   
+  var particleEmitter: SKEmitterNode
+  
   init(gameManager: GameManager, node: SKNode) {
     hexNode = node
     manager = gameManager
+    particleEmitter = SKEmitterNode(fileNamed: "pressed")!
+    node.addChild(particleEmitter)
     super.init()
   }
   
@@ -31,6 +35,8 @@ class ActiveHexGrid: HexGrid {
         if let hex = grid[coordinate] {
           if !hex.active {
             hex.activate()
+            particleEmitter.position = coordinate.toWorld()
+            particleEmitter.resetSimulation()
             lastCoordinate = coordinate
             activeHex = hex;
           }
