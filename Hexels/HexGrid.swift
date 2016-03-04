@@ -20,12 +20,22 @@ class ActiveHexGrid: HexGrid {
   init(gameManager: GameManager, node: SKNode) {
     hexNode = node
     manager = gameManager
-    particleEmitter = SKEmitterNode(fileNamed: "pressed")!
+    particleEmitter = SKEmitterNode()
+    particleEmitter.particleTexture = SKTexture(imageNamed: "hexagon");
+    particleEmitter.particleScale = 0.8
+    particleEmitter.particleScaleSpeed = 0.4
+    particleEmitter.particleAlpha = 0.6
+    particleEmitter.particleAlphaSpeed = -0.3
+    particleEmitter.particleBirthRate = 0
+    particleEmitter.particleLifetime = 2.5
+    particleEmitter.particleColorSequence = nil
+    particleEmitter.particleColorBlendFactor = 1.0
     node.addChild(particleEmitter)
     super.init()
   }
   
   func activateHexagon() {
+    particleEmitter.particleBirthRate = 1
     var tries = 0
     while activeHex == nil && tries <= 50 {
       tries += 1
@@ -37,6 +47,7 @@ class ActiveHexGrid: HexGrid {
             hex.activate()
             particleEmitter.position = coordinate.toWorld()
             particleEmitter.resetSimulation()
+            particleEmitter.particleColor = hex.color;
             lastCoordinate = coordinate
             activeHex = hex;
           }
@@ -155,6 +166,7 @@ class ActiveHexGrid: HexGrid {
       }
     }
     activeHex = nil;
+    particleEmitter.particleBirthRate = 0;
   }
   
   override func createHexagon(atPosition: Axialcoordinate) {
